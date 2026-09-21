@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Admin – Sertãxi</title>
+    <link rel="icon" type="image/png" href="assets/logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/global.css">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Inter', sans-serif; background: #0f172a; color: #e2e8f0; min-height: 100vh; }
+
+        .admin-header {
+            background: #1e293b;
+            border-bottom: 1px solid #334155;
+            padding: 16px 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .admin-header h1 { font-size: 1.2rem; font-weight: 800; color: #f59e0b; }
+        .admin-header p { font-size: 0.8rem; color: #94a3b8; }
+        .logout-btn {
+            background: #dc2626; color: #fff; border: none;
+            border-radius: 8px; padding: 8px 16px; font-size: 0.82rem;
+            font-weight: 700; cursor: pointer;
+        }
+
+        .admin-body { padding: 32px; max-width: 1200px; margin: 0 auto; }
+
+        .section-title {
+            font-size: 1rem; font-weight: 700; color: #f59e0b;
+            margin-bottom: 16px; display: flex; align-items: center; gap: 8px;
+        }
+        .badge-count {
+            background: #ef4444; color: #fff;
+            font-size: 0.72rem; font-weight: 700;
+            padding: 2px 8px; border-radius: 99px;
+        }
+
+        .table-wrap {
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 40px;
+        }
+        table { width: 100%; border-collapse: collapse; }
+        th {
+            background: #0f172a;
+            color: #94a3b8;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 12px 16px;
+            text-align: left;
+        }
+        td { padding: 12px 16px; font-size: 0.88rem; border-top: 1px solid #334155; }
+        tr:hover td { background: #1a2744; }
+
+        .type-badge {
+            display: inline-block;
+            padding: 3px 10px; border-radius: 99px;
+            font-size: 0.75rem; font-weight: 700;
+        }
+        .type-passenger { background: #dbeafe; color: #1d4ed8; }
+        .type-driver { background: #dcfce7; color: #16a34a; }
+
+        .status-pending { color: #f59e0b; font-weight: 700; }
+        .status-active { color: #22c55e; font-weight: 700; }
+        .status-rejected { color: #ef4444; font-weight: 700; }
+        .status-banned { color: #dc2626; font-weight: 700; }
+
+        .comprovante-code {
+            font-family: monospace;
+            font-size: 0.75rem;
+            color: #94a3b8;
+            max-width: 160px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .btn-approve {
+            background: #22c55e; color: #fff; border: none;
+            border-radius: 6px; padding: 5px 12px;
+            font-size: 0.78rem; font-weight: 700; cursor: pointer;
+            margin-right: 4px;
+        }
+        .btn-reject {
+            background: #ef4444; color: #fff; border: none;
+            border-radius: 6px; padding: 5px 12px;
+            font-size: 0.78rem; font-weight: 700; cursor: pointer;
+            margin-right: 4px;
+        }
+        .btn-ban {
+            background: #dc2626; color: #fff; border: none;
+            border-radius: 6px; padding: 5px 10px;
+            font-size: 0.75rem; font-weight: 700; cursor: pointer;
+        }
+        .btn-unban {
+            background: #64748b; color: #fff; border: none;
+            border-radius: 6px; padding: 5px 10px;
+            font-size: 0.75rem; font-weight: 700; cursor: pointer;
+        }
+
+        .empty { color: #64748b; text-align: center; padding: 40px; font-size: 0.9rem; }
+
+        .tabs {
+            display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap;
+        }
+        .tab-btn {
+            background: #1e293b; color: #94a3b8;
+            border: 1px solid #334155; border-radius: 8px;
+            padding: 8px 18px; font-size: 0.85rem; font-weight: 600;
+            cursor: pointer; transition: all 0.2s;
+        }
+        .tab-btn.active {
+            background: #f59e0b; color: #0f172a; border-color: #f59e0b;
+        }
+
+        .toast {
+            position: fixed; bottom: 24px; right: 24px;
+            background: #22c55e; color: #fff;
+            padding: 12px 20px; border-radius: 10px;
+            font-weight: 700; font-size: 0.88rem;
+            display: none; z-index: 9999;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.3);
+        }
+
+        .login-wall {
+            display: flex; align-items: center; justify-content: center;
+            height: 100vh; text-align: center;
+        }
+        .login-wall-card {
+            background: #1e293b; border: 1px solid #334155;
+            border-radius: 16px; padding: 40px; max-width: 360px; width: 100%;
+        }
+        .login-wall-card h2 { color: #f59e0b; margin-bottom: 8px; }
+        .login-wall-card p { color: #94a3b8; font-size: 0.88rem; margin-bottom: 24px; }
+        .login-wall-card input {
+            width: 100%; padding: 12px 14px; border-radius: 8px;
+            border: 1px solid #334155; background: #0f172a;
+            color: #e2e8f0; font-size: 1rem; margin-bottom: 12px;
+        }
+        .login-wall-card button {
+            width: 100%; padding: 12px; background: #f59e0b; color: #0f172a;
+            border: none; border-radius: 8px; font-size: 1rem;
+            font-weight: 800; cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Login Wall -->
+<div class="login-wall" id="loginWall">
+    <div class="login-wall-card">
+        <div style="font-size: 2.5rem; margin-bottom: 12px;">🔐</div>
+        <h2>Acesso Restrito</h2>
+        <p>Este painel é exclusivo para administradores do SerTaxi.</p>
+        <input type="email" id="adminEmail" placeholder="E-mail do administrador" autocomplete="off">
+        <input type="password" id="adminPass" placeholder="Senha" autocomplete="off">
+        <button onclick="adminLogin()">Entrar</button>
+        <p id="loginError" style="color: #ef4444; font-size: 0.82rem; margin-top: 12px; display: none;"></p>
+    </div>
+</div>
+
+<!-- Painel Admin -->
+<div id="adminPanel" style="display: none;">
+    <div class="admin-header">
+        <div>
+            <h1>🛡️ Painel de Administração – SerTaxi</h1>
+            <p id="adminEmailDisplay"></p>
+        </div>
+        <button class="logout-btn" onclick="adminLogout()">Sair</button>
+    </div>
+
+    <div class="admin-body">
+        <div class="tabs">
+            <button class="tab-btn active" onclick="showTab('pending')">⏳ Pagamentos Pendentes <span class="badge-count" id="pendingCount">0</span></button>
+            <button class="tab-btn" onclick="showTab('all')">👥 Todos os Usuários</button>
+        </div>
+
+        <!-- Aba Pendentes -->
+        <div id="tabPending">
+            <div class="section-title">⏳ Aguardando aprovação de pagamento PIX</div>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>E-mail</th>
+                            <th>Tipo</th>
+                            <th>Comprovante PIX</th>
+                            <th>Data Pagamento</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="pendingTable"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Aba Todos -->
+        <div id="tabAll" style="display: none;">
+            <div class="section-title">👥 Todos os Usuários Cadastrados</div>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>E-mail</th>
+                            <th>Tipo</th>
+                            <th>Status</th>
+                            <th>Cadastro</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="allUsersTable"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+    const ADMIN_EMAIL = 'artur2206marques@gmail.com';
+    const ADMIN_PASS  = 'sertaxi@admin2026'; // senha do painel
+
+    function adminLogin() {
+        const email = document.getElementById('adminEmail').value.trim();
+        const pass  = document.getElementById('adminPass').value;
+        const err   = document.getElementById('loginError');
+
+        if (email === ADMIN_EMAIL && pass === ADMIN_PASS) {
+            sessionStorage.setItem('sertaxi_admin', '1');
+            document.getElementById('loginWall').style.display = 'none';
+            document.getElementById('adminPanel').style.display = 'block';
+            document.getElementById('adminEmailDisplay').textContent = 'Logado como: ' + email;
+            renderAll();
+        } else {
+            err.textContent = 'E-mail ou senha incorretos.';
+            err.style.display = 'block';
+        }
+    }
+
+    function adminLogout() {
+        sessionStorage.removeItem('sertaxi_admin');
+        location.reload();
+    }
+
+    function showTab(tab) {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        event.target.classList.add('active');
+        document.getElementById('tabPending').style.display = tab === 'pending' ? 'block' : 'none';
+        document.getElementById('tabAll').style.display = tab === 'all' ? 'block' : 'none';
+    }
+
+    function getUsers() {
+        return JSON.parse(localStorage.getItem('sertaxi_users') || '[]');
+    }
+    function saveUsers(users) {
+        localStorage.setItem('sertaxi_users', JSON.stringify(users));
+    }
+
+    function formatDate(iso) {
+        if (!iso) return '—';
+        const d = new Date(iso);
+        return d.toLocaleDateString('pt-BR') + ' ' + d.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+    }
+
+    function showToast(msg, ok = true) {
+        const t = document.getElementById('toast');
+        t.textContent = msg;
+        t.style.background = ok ? '#22c55e' : '#ef4444';
+        t.style.display = 'block';
+        setTimeout(() => t.style.display = 'none', 3000);
+    }
+
+    function approveUser(id) {
+        const users = getUsers();
+        const u = users.find(u => u.id === id);
+        if (!u) return;
+        u.status = 'active';
+        u.approvedAt = new Date().toISOString();
+        saveUsers(users);
+        showToast('✅ Usuário aprovado: ' + u.name);
+        renderAll();
+    }
+
+    function rejectUser(id) {
+        if (!confirm('Rejeitar este comprovante? O usuário não conseguirá acessar.')) return;
+        const users = getUsers();
+        const u = users.find(u => u.id === id);
+        if (!u) return;
+        u.status = 'rejected';
+        saveUsers(users);
+        showToast('❌ Comprovante rejeitado: ' + u.name, false);
+        renderAll();
+    }
+
+    function banUser(id) {
+        if (!confirm('Banir este usuário? Ele não conseguirá mais acessar o site.')) return;
+        const users = getUsers();
+        const u = users.find(u => u.id === id);
+        if (!u) return;
+        u.banned = true;
+        saveUsers(users);
+        showToast('🚫 Usuário banido: ' + u.name, false);
+        renderAll();
+    }
+
+    function unbanUser(id) {
+        const users = getUsers();
+        const u = users.find(u => u.id === id);
+        if (!u) return;
+        u.banned = false;
+        saveUsers(users);
+        showToast('✅ Usuário desbloqueado: ' + u.name);
+        renderAll();
+    }
+
+    function statusLabel(u) {
+        if (u.banned) return '<span class="status-banned">🚫 Banido</span>';
+        if (u.status === 'pending') return '<span class="status-pending">⏳ Pendente</span>';
+        if (u.status === 'rejected') return '<span class="status-rejected">❌ Rejeitado</span>';
+        return '<span class="status-active">✅ Ativo</span>';
+    }
+
+    function renderAll() {
+        const users = getUsers();
+        const pending = users.filter(u => u.status === 'pending');
+
+        document.getElementById('pendingCount').textContent = pending.length;
+
+        // Pendentes
+        const pt = document.getElementById('pendingTable');
+        if (pending.length === 0) {
+            pt.innerHTML = '<tr><td colspan="6" class="empty">Nenhum pagamento pendente 🎉</td></tr>';
+        } else {
+            pt.innerHTML = pending.map(u => `
+                <tr>
+                    <td><strong>${u.name || '—'}</strong></td>
+                    <td>${u.email || '—'}</td>
+                    <td><span class="type-badge ${u.type === 'driver' ? 'type-driver' : 'type-passenger'}">${u.type === 'driver' ? '🚗 Motorista' : '🧳 Passageiro'}</span></td>
+                    <td><div class="comprovante-code" title="${u.pixComprovante || ''}">${u.pixComprovante || '—'}</div></td>
+                    <td>${formatDate(u.pixPaidAt)}</td>
+                    <td>
+                        <button class="btn-approve" onclick="approveUser('${u.id}')">✅ Aprovar</button>
+                        <button class="btn-reject" onclick="rejectUser('${u.id}')">❌ Rejeitar</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        // Todos
+        const at = document.getElementById('allUsersTable');
+        if (users.length === 0) {
+            at.innerHTML = '<tr><td colspan="6" class="empty">Nenhum usuário cadastrado ainda.</td></tr>';
+        } else {
+            at.innerHTML = users.map(u => `
+                <tr>
+                    <td><strong>${u.name || '—'}</strong></td>
+                    <td>${u.email || '—'}</td>
+                    <td><span class="type-badge ${u.type === 'driver' ? 'type-driver' : 'type-passenger'}">${u.type === 'driver' ? '🚗 Motorista' : '🧳 Passageiro'}</span></td>
+                    <td>${statusLabel(u)}</td>
+                    <td>${formatDate(u.createdAt)}</td>
+                    <td>
+                        ${u.banned
+                            ? `<button class="btn-unban" onclick="unbanUser('${u.id}')">🔓 Desbanir</button>`
+                            : `<button class="btn-ban" onclick="banUser('${u.id}')">🚫 Banir</button>`}
+                    </td>
+                </tr>
+            `).join('');
+        }
+    }
+
+    // Verifica se admin está logado
+    if (sessionStorage.getItem('sertaxi_admin') === '1') {
+        document.getElementById('loginWall').style.display = 'none';
+        document.getElementById('adminPanel').style.display = 'block';
+        document.getElementById('adminEmailDisplay').textContent = 'Logado como: ' + ADMIN_EMAIL;
+        renderAll();
+    }
+
+    // Permite login teclando Enter
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && document.getElementById('loginWall').style.display !== 'none') {
+            adminLogin();
+        }
+    });
+</script>
+</body>
+</html>

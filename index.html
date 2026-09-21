@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sertãxi – Site com os táxi mais seguros</title>
+    <link rel="icon" type="image/png" href="assets/logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/landing.css">
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="assets/logo.png" alt="Sertãxi Logo" class="logo-img">
+            </a>
+
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#inicio">Início</a></li>
+                <li><a href="#como-funciona">Como Funciona</a></li>
+                <li><a href="#passageiros">Para Passageiros</a></li>
+                <li><a href="#motoristas">Para Motoristas</a></li>
+                <li><a href="#locais">Locais</a></li>
+            </ul>
+
+            <div class="nav-actions" id="navAuthContainer">
+                <a href="login.html" class="btn btn-outline btn-sm">Entrar</a>
+                <a href="login-motorista.html" class="btn btn-secondary btn-sm" title="Acesso exclusivo para motoristas">🚗 Sou Motorista</a>
+                <a href="cadastro-passageiro.html" class="btn btn-primary btn-sm">Cadastre-se</a>
+            </div>
+
+            <button class="mobile-toggle" id="mobileToggle" aria-label="Abrir menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero" id="inicio">
+        <div class="hero-bg"></div>
+        <div class="container hero-grid">
+            <div class="hero-content">
+                <span class="badge badge-success mb-2">⭐ Sertãxi · O site com os táxi mais seguros</span>
+                <h1>Viaje ou dirija com o <span class="highlight">Sertãxi</span></h1>
+                <p class="hero-description">
+                    A plataforma regional de corridas que valoriza você. Conectando passageiros a motoristas de confiança com rapidez, preço justo e sem robôs.
+                </p>
+
+                <div class="hero-cta-cards">
+                    <!-- Card Passageiro -->
+                    <div class="cta-choice-card">
+                        <div>
+                            <div class="cta-card-icon">🧳</div>
+                            <h3>Quero Viajar</h3>
+                            <p>Peça um táxi em segundos com preço fixo justo e motoristas confiáveis.</p>
+                        </div>
+                        <a href="cadastro-passageiro.html" class="btn btn-primary btn-full">
+                            Cadastrar Passageiro →
+                        </a>
+                    </div>
+
+                    <!-- Card Motorista -->
+                    <div class="cta-choice-card driver">
+                        <div>
+                            <div class="cta-card-icon">🚗</div>
+                            <h3>Quero Dirigir</h3>
+                            <p>Receba chamados em tempo real, fique online quando quiser e fature mais.</p>
+                        </div>
+                        <a href="cadastro-motorista.html" class="btn btn-primary btn-full">
+                            Cadastrar Motorista →
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Visual Mockup -->
+            <div class="hero-visual-col">
+                <div class="hero-mockup-card">
+                    <div class="mockup-header">
+                        <div class="flex items-center gap-1">
+                            <span class="status-dot online"></span>
+                            <span class="text-sm font-bold text-success">Corrida em Tempo Real</span>
+                        </div>
+                        <span class="badge badge-warning">Solicitação Aceita</span>
+                    </div>
+                    <div class="ride-route mb-2">
+                        <div class="route-item">
+                            <span class="route-badge origem">A</span>
+                            <div>
+                                <div class="text-xs text-muted">EMBARQUE</div>
+                                <strong>Praça João Suassuna</strong>
+                            </div>
+                        </div>
+                        <div class="route-item">
+                            <span class="route-badge destino">B</span>
+                            <div>
+                                <div class="text-xs text-muted">DESTINO</div>
+                                <strong>Antiga Estação Ferroviária</strong>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mockup-driver-box">
+                        <div class="avatar avatar-primary">🚕</div>
+                        <div class="flex-1">
+                            <strong class="text-sm">Motorista Parceiro</strong>
+                            <div class="text-xs text-muted">Veículo a caminho</div>
+                        </div>
+                        <span class="badge badge-success">3 min</span>
+                    </div>
+                    <div class="flex justify-between items-center mt-3 pt-2" style="border-top: 1px solid var(--border-light);">
+                        <span class="text-sm text-muted">Tarifa Estimada</span>
+                        <strong class="ride-price text-success">R$ 48,50</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- COMO FUNCIONA -->
+    <section class="how-section" id="como-funciona">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Fluxo Simples</span>
+                <h2>Como funciona a plataforma</h2>
+                <p>Tecnologia direta e transparente para quem viaja e para quem dirige.</p>
+            </div>
+
+            <div class="how-grid-steps">
+                <div class="how-step-card">
+                    <div class="how-step-number">1</div>
+                    <h3>Crie seu Acesso</h3>
+                    <p>Cadastre-se rapidamente como passageiro ou cadastre seu veículo como motorista parceiro.</p>
+                </div>
+                <div class="how-step-card">
+                    <div class="how-step-number">2</div>
+                    <h3>Solicite ou Aceite</h3>
+                    <p>O passageiro informa a rota e vê o preço na hora. Motoristas online visualizam a chamada e aceitam.</p>
+                </div>
+                <div class="how-step-card">
+                    <div class="how-step-number">3</div>
+                    <h3>Viagem & Pagamento</h3>
+                    <p>Acompanhe a corrida em andamento. Pague ou receba direto com segurança e transparência.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BENEFÍCIOS DUPLOS (PASSAGEIRO & MOTORISTA) -->
+    <section class="split-features" id="passageiros">
+        <div class="container split-features-grid">
+            <!-- Box Passageiros -->
+            <div class="split-box">
+                <span class="badge badge-warning mb-2">Para Passageiros</span>
+                <h3>Viaje com liberdade e confiança</h3>
+                <p>Esqueça os cancelamentos repetitivos e preços dinâmicos absurdos. No SerTaxi você é prioridade.</p>
+                <div class="split-list">
+                    <div class="split-list-item">
+                        <span>🛡️</span>
+                        <span>Motoristas credenciados com histórico limpo</span>
+                    </div>
+                    <div class="split-list-item">
+                        <span>🏷️</span>
+                        <span>Estimativa transparente de preços</span>
+                    </div>
+                    <div class="split-list-item">
+                        <span>💳</span>
+                        <span>Opções flexíveis: PIX, Cartão ou Dinheiro</span>
+                    </div>
+                    <div class="split-list-item">
+                        <span>📍</span>
+                        <span>Painel interativo para pedir e acompanhar</span>
+                    </div>
+                </div>
+                <a href="cadastro-passageiro.html" class="btn btn-primary">
+                    Cadastrar como Passageiro →
+                </a>
+            </div>
+
+            <!-- Box Motoristas -->
+            <div class="split-box dark" id="motoristas">
+                <span class="badge badge-warning mb-2">Para Motoristas</span>
+                <h3>Fature mais com respeito e autonomia</h3>
+                <p>Seja valorizado de verdade com painel dedicado, ganhos em tempo real e chamadas contínuas.</p>
+                <div class="split-list">
+                    <div class="split-list-item">
+                        <span>💰</span>
+                        <span>Ganhos reais com visualização diária e semanal</span>
+                    </div>
+                    <div class="split-list-item">
+                        <span>⚡</span>
+                        <span>Botão de Ficar Online/Offline quando desejar</span>
+                    </div>
+                    <div class="split-list-item">
+                        <span>📲</span>
+                        <span>Lista de passageiros aguardando com preço antecipado</span>
+                    </div>
+                    <div class="split-list-item">
+                        <span>🤝</span>
+                        <span>Suporte e comunidade local com atendimento humano</span>
+                    </div>
+                </div>
+                <a href="cadastro-motorista.html" class="btn btn-primary">
+                    Cadastrar como Motorista →
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- DEPOIMENTOS -->
+    <!-- LOCAIS DE SERTANIA -->
+    <section class="testimonials-section" id="locais">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Destinos</span>
+                <h2>Principais Locais de Sertânia</h2>
+                <p>Conheça os pontos mais populares de embarque e desembarque da nossa cidade.</p>
+            </div>
+
+            <div class="testimonials-grid">
+                <div class="testimonial-box">
+                    <div class="testimonial-stars" style="font-size: 2rem;">⛪</div>
+                    <p class="testimonial-text">"Um dos pontos centrais da cidade. Ideal para passeios em família e ponto de encontro tradicional dos moradores."</p>
+                    <div class="flex items-center gap-1">
+                        <div>
+                            <strong class="text-sm">Praça João Suassuna</strong>
+                            <div class="text-xs text-muted">Centro, Sertânia</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-box">
+                    <div class="testimonial-stars" style="font-size: 2rem;">🚂</div>
+                    <p class="testimonial-text">"Ponto histórico da cidade, representando o marco ferroviário da nossa cultura e desenvolvimento regional."</p>
+                    <div class="flex items-center gap-1">
+                        <div>
+                            <strong class="text-sm">Antiga Estação Ferroviária</strong>
+                            <div class="text-xs text-muted">Centro Histórico</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-box">
+                    <div class="testimonial-stars" style="font-size: 2rem;">💧</div>
+                    <p class="testimonial-text">"Lugar bonito para visitar, especialmente nos finais de tarde. Um dos cartões postais de Sertânia."</p>
+                    <div class="flex items-center gap-1">
+                        <div>
+                            <strong class="text-sm">Açude Campos</strong>
+                            <div class="text-xs text-muted">Área de Lazer</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA BANNER -->
+    <section class="cta-banner-section">
+        <div class="container">
+            <h2>Pronto para fazer parte do SerTaxi?</h2>
+            <p>Junte-se a milhares de passageiros e motoristas hoje mesmo. Escolha como quer começar:</p>
+            <div class="cta-banner-buttons">
+                <a href="cadastro-passageiro.html" class="btn btn-primary btn-lg">
+                    Quero Viajar (Passageiro)
+                </a>
+                <a href="cadastro-motorista.html" class="btn btn-outline-white btn-lg">
+                    Quero Dirigir (Motorista)
+                </a>
+                <a href="login.html" class="btn btn-ghost btn-lg" style="color: #fff;">
+                    Já tenho conta →
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-simple">
+            <div class="logo">
+                <div class="logo-box-light">
+                    <img src="assets/logo.png" alt="Sertãxi" style="height: 38px; display: block;">
+                </div>
+            </div>
+            <p>&copy; 2026 Sertãxi – O site com os táxi mais seguros. Todos os direitos reservados. Sem robôs, 100% pessoas.</p>
+            <div class="flex gap-2">
+                <a href="login.html" class="text-xs text-muted">Entrar</a>
+                <a href="login-motorista.html" class="text-xs text-muted"><strong>Portal do Motorista</strong></a>
+                <a href="cadastro-passageiro.html" class="text-xs text-muted">Passageiro</a>
+                <a href="cadastro-motorista.html" class="text-xs text-muted">Motorista</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/utils.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/landing.js"></script>
+</body>
+</html>

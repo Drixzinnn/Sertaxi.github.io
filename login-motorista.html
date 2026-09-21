@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal do Motorista Parceiro – Sertãxi</title>
+    <link rel="icon" type="image/png" href="assets/logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/auth.css">
+</head>
+<body>
+    <div class="auth-wrapper">
+        <!-- Banner Lateral Exclusivo do Motorista -->
+        <aside class="auth-banner" style="background: linear-gradient(135deg, #063d1e 0%, #0F172A 100%);">
+            <a href="index.html" class="logo">
+                <div class="logo-box-light">
+                    <img src="assets/logo.png" alt="Sertãxi" style="height: 52px; display: block;">
+                </div>
+            </a>
+
+            <div class="auth-banner-content">
+                <div class="auth-banner-badge" style="background: rgba(10, 125, 62, 0.25); color: #fff; border-color: rgba(255,255,255,0.3);">
+                    🚗 Área Exclusiva do Motorista
+                </div>
+                <h2>Acesse sua central de corridas e ganhos</h2>
+                <p>O Sertãxi valoriza seu trabalho com repasses justos, corridas frequentes e transparência total.</p>
+                <div class="auth-features">
+                    <div class="auth-feature-item">
+                        <span class="auth-feature-icon">💰</span>
+                        <span>Controle financeiro diário e semanal sem taxas ocultas</span>
+                    </div>
+                    <div class="auth-feature-item">
+                        <span class="auth-feature-icon">🛡️</span>
+                        <span>Motoristas credenciados com documentação verificada</span>
+                    </div>
+                    <div class="auth-feature-item">
+                        <span class="auth-feature-icon">⚡</span>
+                        <span>Ativação online instantânea pelo painel</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="auth-banner-footer">
+                &copy; 2026 Sertãxi. Plataforma com os táxi mais seguros.
+            </div>
+        </aside>
+
+        <!-- Formulário de Login do Motorista -->
+        <main class="auth-main">
+            <div class="auth-card driver-portal-card">
+                <div class="auth-header">
+                    <div class="badge-age-check">
+                        <span>🔞</span> Exigência: Documento de Identidade e CNH válida
+                    </div>
+                    <h1>Login do Motorista</h1>
+                    <p>Entre com sua conta parceira para ficar online e receber chamadas.</p>
+                </div>
+
+                <div id="authAlert" class="auth-alert error"></div>
+
+                <!-- Botões de Login Social (Google e Apple / iPhone) -->
+                <div class="social-auth-container">
+                    <script src="https://accounts.google.com/gsi/client" async defer></script>
+                    <div id="g_id_onload" 
+                         data-client_id="1075367414956-8p3nrbd209l9lg89du3hbdjn3l05h72a.apps.googleusercontent.com" 
+                         data-callback="handleGoogleDriver" 
+                         data-auto_prompt="false">
+                    </div>
+                    <div class="g_id_signin" 
+                         data-type="standard" 
+                         data-size="large" 
+                         data-theme="outline" 
+                         data-text="sign_in_with" 
+                         data-shape="rectangular" 
+                         data-logo_alignment="left">
+                    </div>
+
+                    <button type="button" class="btn-social btn-apple" id="btnAppleLogin">
+                        <svg viewBox="0 0 170 170" fill="currentColor">
+                            <path d="M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.19-2.12-9.97-3.17-14.34-3.17-4.58 0-9.49 1.05-14.75 3.17-5.26 2.13-9.5 3.24-12.74 3.35-4.35.13-9.16-1.9-14.42-6.08-3.7-3.04-7.7-7.83-12-14.36-6.19-9.35-11.13-20.2-14.82-32.54-3.69-12.35-5.54-24.18-5.54-35.5 0-14.79 3.58-26.96 10.74-36.5 7.16-9.55 16.32-14.39 27.48-14.53 4.8 0 10.08 1.25 15.84 3.75 5.76 2.5 9.74 3.86 11.94 4.09 2.08-.23 6.16-1.59 12.24-4.09 6.08-2.5 11.36-3.7 15.84-3.6 11.16.27 20.32 4.67 27.48 13.2 7.16 8.53 11.32 18.91 12.48 31.13-10.96 6.64-16.34 15.74-16.14 27.3.2 9.94 4.03 18.17 11.5 24.69 7.47 6.52 16.29 10.35 26.46 11.49-1.97 6.08-4.58 12.35-7.83 18.8zM119.22 31.84c0-7.39 2.65-14.39 7.95-21 5.3-6.61 11.96-10.59 19.98-11.94.43 1.3.65 2.5.65 3.6 0 7.39-2.75 14.44-8.25 21.15-5.5 6.71-12.16 10.74-19.98 12.09-.22-1.3-.35-2.6-.35-3.9z"/>
+                        </svg>
+                        <span>Entrar com a Conta do iPhone (Apple)</span>
+                    </button>
+                </div>
+
+                <div class="auth-divider">
+                    <span>ou acesse com e-mail de motorista</span>
+                </div>
+
+                <form id="driverLoginForm">
+                    <div class="form-group">
+                        <label for="email">E-mail Profissional</label>
+                        <input type="email" id="email" class="form-control" placeholder="motorista@exemplo.com" required autocomplete="email">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Senha</label>
+                        <div class="password-field">
+                            <input type="password" id="password" class="form-control" placeholder="Sua senha de motorista" required autocomplete="current-password">
+                            <button type="button" class="password-toggle" id="togglePassword" aria-label="Mostrar/ocultar senha">👁️</button>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-lg btn-full mt-2">
+                        Acessar Painel do Motorista 🚗
+                    </button>
+                </form>
+
+                <div class="auth-divider">
+                    <span>novo parceiro?</span>
+                </div>
+
+                <div class="auth-footer-links">
+                    <p>Ainda não dirige conosco? <a href="cadastro-motorista.html"><strong>Cadastre-se como Motorista (17+)</strong></a></p>
+                    <p>Você é passageiro? <a href="login.html">Ir para Login de Passageiro</a></p>
+                    <p style="margin-top: 10px;"><a href="index.html" style="color: var(--text-light); font-weight: normal;">← Voltar para a página inicial</a></p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/utils.js"></script>
+    <script src="js/auth.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            Auth.redirectIfLoggedIn();
+
+            const form = document.getElementById('driverLoginForm');
+            const alertBox = document.getElementById('authAlert');
+            const togglePassword = document.getElementById('togglePassword');
+            const passwordInput = document.getElementById('password');
+
+            togglePassword.addEventListener('click', () => {
+                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordInput.setAttribute('type', type);
+                togglePassword.textContent = type === 'password' ? '👁️' : '🙈';
+            });
+
+            // Login tradicional
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const email = document.getElementById('email').value.trim();
+                const password = document.getElementById('password').value;
+
+                alertBox.style.display = 'none';
+
+                const result = Auth.login(email, password, 'driver');
+
+                if (result.success) {
+                    alertBox.className = 'auth-alert success';
+                    alertBox.textContent = 'Login aprovado! Entrando no painel do motorista...';
+                    alertBox.style.display = 'flex';
+
+                    setTimeout(() => {
+                        window.location.href = 'painel-motorista.html';
+                    }, 800);
+                } else {
+                    alertBox.className = 'auth-alert error';
+                    alertBox.textContent = result.error || 'Erro ao autenticar motorista.';
+                    alertBox.style.display = 'flex';
+                }
+            });
+
+            // Login com Google
+            document.getElementById('btnGoogleLogin').addEventListener('click', () => {
+                alertBox.className = 'auth-alert success';
+                alertBox.textContent = 'Autenticado com sucesso via Conta Google!';
+                alertBox.style.display = 'flex';
+
+                Auth.loginWithGoogle('driver');
+                setTimeout(() => {
+                    window.location.href = 'painel-motorista.html';
+                }, 800);
+            });
+
+            // Login com Apple (iPhone)
+            document.getElementById('btnAppleLogin').addEventListener('click', () => {
+                alertBox.className = 'auth-alert success';
+                alertBox.textContent = 'Autenticado com sucesso via Apple ID!';
+                alertBox.style.display = 'flex';
+
+                Auth.loginWithApple('driver');
+                setTimeout(() => {
+                    window.location.href = 'painel-motorista.html';
+                }, 800);
+            });
+        });
+    </script>
+</body>
+</html>

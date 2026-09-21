@@ -1,0 +1,345 @@
+/* =========================================
+   SERTAXI – Autenticação (Login e Cadastros)
+   ========================================= */
+
+.auth-wrapper {
+    min-height: 100vh;
+    display: flex;
+    background: var(--bg-soft);
+}
+
+.auth-banner {
+    flex: 1;
+    background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+    color: #fff;
+    padding: 60px 48px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+}
+
+.auth-banner::before {
+    content: '';
+    position: absolute;
+    width: 350px;
+    height: 350px;
+    background: radial-gradient(circle, rgba(245, 158, 11, 0.25) 0%, transparent 70%);
+    top: -50px;
+    right: -50px;
+    border-radius: 50%;
+}
+
+.auth-banner .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: #fff;
+    z-index: 2;
+}
+
+.auth-banner .logo-icon {
+    font-size: 1.8rem;
+}
+
+.auth-banner-content {
+    max-width: 440px;
+    z-index: 2;
+}
+
+.auth-banner-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(245, 158, 11, 0.15);
+    color: var(--primary);
+    border: 1px solid rgba(245, 158, 11, 0.3);
+    padding: 6px 14px;
+    border-radius: var(--radius-full);
+    font-size: 0.82rem;
+    font-weight: 700;
+    margin-bottom: 24px;
+}
+
+.auth-banner h2 {
+    color: #fff;
+    font-size: clamp(2rem, 3.5vw, 2.7rem);
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 20px;
+}
+
+.auth-banner p {
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 1.05rem;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+.auth-features {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.auth-feature-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.auth-feature-icon {
+    font-size: 1.25rem;
+}
+
+.auth-banner-footer {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.5);
+    z-index: 2;
+}
+
+/* Área do Formulário */
+.auth-main {
+    flex: 1.1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 32px;
+    overflow-y: auto;
+}
+
+.auth-card {
+    width: 100%;
+    max-width: 520px;
+    background: var(--bg-card);
+    padding: 44px;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--border-light);
+}
+
+.auth-header {
+    margin-bottom: 30px;
+}
+
+.auth-header h1 {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--dark);
+    margin-bottom: 8px;
+}
+
+.auth-header p {
+    color: var(--text-light);
+    font-size: 0.95rem;
+}
+
+.auth-alert {
+    padding: 12px 16px;
+    border-radius: var(--radius-sm);
+    font-size: 0.88rem;
+    margin-bottom: 20px;
+    display: none;
+}
+
+.auth-alert.error {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--danger-light);
+    color: #991B1B;
+    border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+.auth-alert.success {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--success-light);
+    color: #065F46;
+    border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.password-field {
+    position: relative;
+}
+
+.password-toggle {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.1rem;
+    color: var(--text-lighter);
+    transition: var(--transition);
+}
+
+.password-toggle:hover {
+    color: var(--dark);
+}
+
+.auth-divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 24px 0;
+    color: var(--text-lighter);
+    font-size: 0.85rem;
+}
+
+.auth-divider::before,
+.auth-divider::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid var(--border);
+}
+
+.auth-divider span {
+    padding: 0 12px;
+}
+
+.auth-footer-links {
+    text-align: center;
+    font-size: 0.9rem;
+    color: var(--text-light);
+    margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.auth-footer-links a {
+    color: var(--primary-dark);
+    font-weight: 600;
+}
+
+.auth-footer-links a:hover {
+    text-decoration: underline;
+}
+
+.form-section-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--dark);
+    margin: 20px 0 14px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--border-light);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* --- Botões de Login Social (Google e Apple) --- */
+.social-auth-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.btn-social {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    width: 100%;
+    padding: 13px 18px;
+    border-radius: var(--radius);
+    font-size: 0.92rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    border: 1.5px solid transparent;
+}
+
+.btn-social svg {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+}
+
+.btn-google {
+    background: #ffffff;
+    color: #374151;
+    border-color: #E5E7EB;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.btn-google:hover {
+    background: #F9FAFB;
+    border-color: #D1D5DB;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    transform: translateY(-1px);
+}
+
+.btn-apple {
+    background: #000000;
+    color: #ffffff;
+    border-color: #000000;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.btn-apple:hover {
+    background: #1F2937;
+    border-color: #1F2937;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    transform: translateY(-1px);
+}
+
+.badge-age-check {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(10, 125, 62, 0.1);
+    color: var(--primary);
+    border: 1px solid rgba(10, 125, 62, 0.25);
+    padding: 6px 12px;
+    border-radius: var(--radius-sm);
+    font-size: 0.8rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+.driver-portal-card {
+    border-top: 4px solid var(--primary);
+}
+
+/* Responsividade */
+@media (max-width: 960px) {
+    .auth-wrapper {
+        flex-direction: column;
+    }
+
+    .auth-banner {
+        padding: 32px 24px;
+        min-height: 240px;
+    }
+
+    .auth-banner-content {
+        max-width: 100%;
+    }
+
+    .auth-features,
+    .auth-banner-footer {
+        display: none;
+    }
+
+    .auth-card {
+        padding: 28px 20px;
+        box-shadow: none;
+        border: none;
+        background: transparent;
+    }
+
+    .auth-main {
+        padding: 20px 16px;
+    }
+}

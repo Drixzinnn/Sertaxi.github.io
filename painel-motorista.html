@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel do Motorista – Sertãxi</title>
+    <link rel="icon" type="image/png" href="assets/logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+    <div class="dashboard-layout">
+        <!-- Sidebar -->
+        <aside class="dashboard-sidebar" id="sidebar">
+            <div class="sidebar-top">
+                <a href="index.html" class="sidebar-brand">
+                    <div class="logo-box-light" style="width: 100%;">
+                        <img src="assets/logo.png" alt="Sertãxi" style="height: 42px; display: block; margin: 0 auto;">
+                    </div>
+                </a>
+
+                <div class="user-profile-badge">
+                    <div class="avatar avatar-primary" id="driverAvatar">MT</div>
+                    <div class="user-profile-info">
+                        <div class="user-profile-name" id="driverName">Carregando...</div>
+                        <div class="user-profile-type">Motorista Parceiro</div>
+                    </div>
+                </div>
+
+                <!-- Botão Online / Offline -->
+                <div class="online-toggle-container">
+                    <div class="flex items-center gap-1">
+                        <span class="status-dot online" id="driverStatusDot"></span>
+                        <span class="text-sm font-bold" id="driverStatusLabel">Online</span>
+                    </div>
+                    <label class="switch">
+                        <input type="checkbox" id="onlineCheckbox" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <nav class="sidebar-menu">
+                    <button class="menu-item active" data-tab="inicio">
+                        <span class="menu-icon">🏠</span>
+                        <span>Início</span>
+                    </button>
+                    <button class="menu-item" data-tab="disponiveis">
+                        <span class="menu-icon">⚡</span>
+                        <span>Corridas Disponíveis</span>
+                    </button>
+                    <button class="menu-item" data-tab="minhas-corridas">
+                        <span class="menu-icon">📋</span>
+                        <span>Minhas Viagens</span>
+                    </button>
+                    <button class="menu-item" data-tab="ganhos">
+                        <span class="menu-icon">💰</span>
+                        <span>Meus Ganhos</span>
+                    </button>
+                    <button class="menu-item" data-tab="perfil">
+                        <span class="menu-icon">👤</span>
+                        <span>Meu Perfil</span>
+                    </button>
+                </nav>
+            </div>
+
+            <div class="sidebar-bottom">
+                <button class="logout-btn" id="logoutBtn">
+                    <span>🚪</span>
+                    <span>Sair da Conta</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Conteúdo Principal -->
+        <main class="dashboard-main">
+            <header class="dashboard-header">
+                <div class="flex items-center gap-2">
+                    <button class="dashboard-mobile-btn" id="mobileToggleBtn" aria-label="Menu">☰</button>
+                    <div class="header-title">
+                        <h2 id="pageTitle">Painel do Motorista</h2>
+                        <p id="pageSubtitle">Acompanhe suas corridas e ganhos em tempo real</p>
+                    </div>
+                </div>
+                <div class="header-actions">
+                    <span class="badge badge-success" id="driverStatusBadge">Disponível para corridas</span>
+                </div>
+            </header>
+
+            <div class="dashboard-content">
+                <!-- ABA 1: Início -->
+                <section class="tab-content active" id="tab-inicio">
+                    <div class="stats-grid">
+                        <div class="stat-box">
+                            <div class="stat-icon-wrapper green">💰</div>
+                            <div class="stat-data">
+                                <strong id="statEarningsToday">R$ 0,00</strong>
+                                <span>Ganhos Hoje</span>
+                            </div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-icon-wrapper yellow">🚕</div>
+                            <div class="stat-data">
+                                <strong id="statRidesCount">0</strong>
+                                <span>Corridas Realizadas</span>
+                            </div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-icon-wrapper blue">⭐</div>
+                            <div class="stat-data">
+                                <strong id="statDriverRating">4.9</strong>
+                                <span>Sua Nota</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Corrida em Andamento do Motorista -->
+                    <div id="driverActiveRideContainer" style="display: none;">
+                        <div class="active-ride-card">
+                            <div class="active-ride-header">
+                                <div class="active-ride-pulse">
+                                    <span class="status-dot online"></span>
+                                    <span id="driverRideStatusText">Corrida Aceita!</span>
+                                </div>
+                                <span class="badge badge-info" id="driverRideBadge">Em atendimento</span>
+                            </div>
+                            <div class="ride-route mb-2">
+                                <div class="route-item">
+                                    <span class="route-badge origem">A</span>
+                                    <span><strong>Passageiro(a):</strong> <span id="driverRidePassenger">Nome</span></span>
+                                </div>
+                                <div class="route-item">
+                                    <span class="route-badge origem">📍</span>
+                                    <span><strong>Local de Embarque:</strong> <span id="driverRideOrigin">-</span></span>
+                                </div>
+                                <div class="route-item">
+                                    <span class="route-badge destino">🏁</span>
+                                    <span><strong>Destino:</strong> <span id="driverRideDest">-</span></span>
+                                </div>
+                            </div>
+                            <div class="ride-card-bottom">
+                                <div>
+                                    <div class="text-xs text-muted">VALOR A RECEBER</div>
+                                    <div class="ride-price text-success" id="driverRidePrice">R$ 0,00</div>
+                                </div>
+                                <div class="flex gap-1" id="driverRideActions">
+                                    <!-- Botões para iniciar e finalizar corrida inseridos via JS -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Chamada para Corridas Disponíveis -->
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <div>
+                                <h3 style="font-size: 1.15rem; font-weight: 800;">Solicitações em Espera</h3>
+                                <p class="text-muted text-sm">Passageiros aguardando motorista neste momento</p>
+                            </div>
+                            <button class="btn btn-outline btn-sm" onclick="switchTab('disponiveis')">
+                                Ver Lista Completa ⚡
+                            </button>
+                        </div>
+                        <div id="quickAvailableRides" class="rides-list">
+                            <!-- Inserido dinamicamente -->
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ABA 2: Corridas Disponíveis -->
+                <section class="tab-content" id="tab-disponiveis">
+                    <div id="offlineNotice" style="display: none;" class="card text-center mb-3">
+                        <div style="font-size: 2.5rem; margin-bottom: 12px;">😴</div>
+                        <h3>Você está Offline</h3>
+                        <p class="text-muted mb-2">Ative o botão no menu lateral para visualizar e aceitar chamadas de passageiros.</p>
+                        <div>
+                            <button class="btn btn-primary" onclick="setDriverOnline(true)">Ficar Online Agora</button>
+                        </div>
+                    </div>
+
+                    <div id="availableRidesContainer">
+                        <div id="availableRidesList" class="rides-list">
+                            <!-- Inserido dinamicamente -->
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ABA 3: Minhas Viagens -->
+                <section class="tab-content" id="tab-minhas-corridas">
+                    <div class="filter-tabs">
+                        <button class="filter-tab active" data-filter="all">Todas</button>
+                        <button class="filter-tab" data-filter="completed">Concluídas</button>
+                    </div>
+                    <div id="driverHistoryList" class="rides-list">
+                        <!-- Inserido dinamicamente -->
+                    </div>
+                </section>
+
+                <!-- ABA 4: Meus Ganhos -->
+                <section class="tab-content" id="tab-ganhos">
+                    <div class="stats-grid">
+                        <div class="stat-box">
+                            <div class="stat-icon-wrapper green">💵</div>
+                            <div class="stat-data">
+                                <strong id="earningsTodayBox">R$ 0,00</strong>
+                                <span>Ganhos Hoje</span>
+                            </div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-icon-wrapper blue">📅</div>
+                            <div class="stat-data">
+                                <strong id="earningsWeekBox">R$ 0,00</strong>
+                                <span>Últimos 7 dias</span>
+                            </div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-icon-wrapper yellow">🏆</div>
+                            <div class="stat-data">
+                                <strong id="earningsTotalBox">R$ 0,00</strong>
+                                <span>Ganhos Totais</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3 class="mb-2" style="font-size: 1.15rem; font-weight: 800;">Extrato de Corridas Pagas</h3>
+                        <p class="text-muted text-sm mb-3">Valores recebidos diretamente das corridas finalizadas.</p>
+                        <div id="earningsDetailedList" class="rides-list">
+                            <!-- Inserido dinamicamente -->
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ABA 5: Meu Perfil -->
+                <section class="tab-content" id="tab-perfil">
+                    <div class="card" style="max-width: 650px;">
+                        <h3 class="mb-2" style="font-size: 1.25rem; font-weight: 800;">Dados do Motorista e Veículo</h3>
+                        <p class="text-muted mb-3">Atualize suas informações para que os passageiros o identifiquem com facilidade.</p>
+
+                        <form id="driverProfileForm">
+                            <div class="form-section-title">👤 Informações Pessoais</div>
+                            <div class="form-group">
+                                <label for="drvName">Nome Completo</label>
+                                <input type="text" id="drvName" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="drvEmail">E-mail</label>
+                                <input type="email" id="drvEmail" class="form-control" required>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="drvPhone">Telefone</label>
+                                    <input type="tel" id="drvPhone" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="drvCpf">CPF</label>
+                                    <input type="text" id="drvCpf" class="form-control" disabled style="opacity: 0.7; cursor: not-allowed;">
+                                </div>
+                            </div>
+
+                            <div class="form-section-title">🚗 Veículo Cadastrado</div>
+                            <div class="form-group">
+                                <label for="drvCarModel">Modelo do Veículo</label>
+                                <input type="text" id="drvCarModel" class="form-control" required>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="drvCarPlate">Placa</label>
+                                    <input type="text" id="drvCarPlate" class="form-control" required maxlength="8">
+                                </div>
+                                <div class="form-group">
+                                    <label for="drvCarColor">Cor</label>
+                                    <input type="text" id="drvCarColor" class="form-control" required>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-lg mt-2">
+                                Salvar Alterações
+                            </button>
+                        </form>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/utils.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/rides.js"></script>
+    <script src="js/driver.js"></script>
+</body>
+</html>

@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagamento PIX – Sertãxi</title>
+    <link rel="icon" type="image/png" href="assets/logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/auth.css">
+    <style>
+        .pix-card {
+            background: #f0fdf4;
+            border: 2px solid #22c55e;
+            border-radius: 16px;
+            padding: 24px;
+            text-align: center;
+            margin-bottom: 24px;
+        }
+        .pix-logo {
+            font-size: 2.5rem;
+            margin-bottom: 8px;
+        }
+        .pix-amount {
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: #16a34a;
+            margin: 8px 0;
+        }
+        .pix-key-box {
+            background: #fff;
+            border: 1.5px solid #22c55e;
+            border-radius: 10px;
+            padding: 12px 16px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            margin: 12px 0;
+            cursor: pointer;
+        }
+        .pix-key-box button {
+            background: #22c55e;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 6px 14px;
+            font-size: 0.82rem;
+            font-weight: 700;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+        .pix-qr {
+            margin: 16px auto;
+            display: block;
+            border-radius: 12px;
+            border: 3px solid #22c55e;
+        }
+        .pix-note {
+            font-size: 0.82rem;
+            color: #6b7280;
+            margin-top: 8px;
+        }
+        .steps {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .step {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 10px 14px;
+            font-size: 0.9rem;
+        }
+        .step-num {
+            background: var(--primary);
+            color: #fff;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.82rem;
+            flex-shrink: 0;
+        }
+        .pending-box {
+            background: #fffbeb;
+            border: 2px solid #f59e0b;
+            border-radius: 14px;
+            padding: 24px;
+            text-align: center;
+            display: none;
+        }
+        .pending-box h3 { color: #d97706; margin: 0 0 10px 0; }
+        .pending-box p { color: #6b7280; font-size: 0.9rem; margin: 0; }
+    </style>
+</head>
+<body>
+    <div class="auth-wrapper">
+        <!-- Banner Lateral -->
+        <aside class="auth-banner">
+            <a href="index.html" class="logo">
+                <div class="logo-box-light">
+                    <img src="assets/logo.png" alt="Sertãxi" style="height: 48px; display: block;">
+                </div>
+            </a>
+            <div class="auth-banner-content">
+                <div class="auth-banner-badge">💳 Taxa de Ativação</div>
+                <h2>Quase lá! Finalize seu cadastro</h2>
+                <p>Uma taxa única de R$10,00 é cobrada para ativar sua conta no Sertãxi. É rápido e seguro via PIX.</p>
+                <div class="auth-features">
+                    <div class="auth-feature-item">
+                        <span class="auth-feature-icon">✅</span>
+                        <span>Pagamento único — sem mensalidade</span>
+                    </div>
+                    <div class="auth-feature-item">
+                        <span class="auth-feature-icon">⚡</span>
+                        <span>Aprovação em até 24h após comprovante</span>
+                    </div>
+                    <div class="auth-feature-item">
+                        <span class="auth-feature-icon">🔒</span>
+                        <span>PIX seguro e instantâneo</span>
+                    </div>
+                </div>
+            </div>
+            <div class="auth-banner-footer">
+                &copy; 2026 SerTaxi. Todos os direitos reservados.
+            </div>
+        </aside>
+
+        <!-- Formulário de Pagamento -->
+        <main class="auth-main">
+            <div class="auth-card">
+                <!-- Tela de Pagamento -->
+                <div id="paymentScreen">
+                    <div class="auth-header">
+                        <h1>💳 Pague a Taxa de Cadastro</h1>
+                        <p>Realize o PIX de <strong>R$10,00</strong> para ativar sua conta.</p>
+                    </div>
+
+                    <div id="authAlert" class="auth-alert error"></div>
+
+                    <div class="pix-card">
+                        <div class="pix-logo">💚</div>
+                        <div style="font-size: 0.9rem; color: #6b7280; font-weight: 600;">VALOR A PAGAR</div>
+                        <div class="pix-amount">R$10,00</div>
+                        <div style="font-size: 0.85rem; color: #374151; margin-bottom: 8px;">Chave PIX (Telefone):</div>
+                        <div class="pix-key-box" onclick="copyPix()">
+                            <span id="pixKeyText">87992054060</span>
+                            <button>📋 Copiar</button>
+                        </div>
+                        <img class="pix-qr" id="qrCodeImg" width="180" height="180" alt="QR Code PIX" src="">
+                        <div class="pix-note">📱 Abra o app do seu banco → PIX → Escanear QR Code ou Cole a chave manualmente</div>
+                    </div>
+
+                    <div class="steps">
+                        <div class="step"><div class="step-num">1</div><span>Copie a chave PIX <strong>87992054060</strong> ou escaneie o QR Code</span></div>
+                        <div class="step"><div class="step-num">2</div><span>Realize o pagamento de <strong>R$10,00</strong> pelo app do seu banco</span></div>
+                        <div class="step"><div class="step-num">3</div><span>Cole abaixo o <strong>ID da transação</strong> (código E2E ou número do comprovante)</span></div>
+                        <div class="step"><div class="step-num">4</div><span>Clique em <strong>"Enviar Comprovante"</strong> e aguarde aprovação em até 24h</span></div>
+                    </div>
+
+                    <form id="pixForm">
+                        <div class="form-group">
+                            <label for="comprovante">ID da Transação / Número do Comprovante</label>
+                            <input type="text" id="comprovante" class="form-control"
+                                placeholder="Ex: E09089356202106011141..." required
+                                style="font-family: monospace;">
+                            <small style="color: #6b7280; font-size: 0.8rem; margin-top: 4px; display: block;">
+                                💡 No app do banco, após pagar, vá em "Comprovante" e copie o número E2E ou ID da transação.
+                            </small>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-lg btn-full mt-2">
+                            ✅ Enviar Comprovante
+                        </button>
+                    </form>
+
+                    <div class="auth-footer-links" style="margin-top: 16px;">
+                        <p><a href="javascript:history.back()" style="color: var(--text-light); font-weight: normal;">← Voltar para o cadastro</a></p>
+                    </div>
+                </div>
+
+                <!-- Tela de Confirmação -->
+                <div id="pendingScreen" class="pending-box">
+                    <div style="font-size: 3rem; margin-bottom: 12px;">⏳</div>
+                    <h3>Comprovante enviado!</h3>
+                    <p style="margin-bottom: 16px;">Seu comprovante foi registrado. Assim que o administrador confirmar o pagamento, sua conta será ativada e você receberá acesso.</p>
+                    <p><strong>Código do comprovante:</strong><br><span id="comprovanteEcho" style="font-family: monospace; font-size: 0.85rem; color: #374151;"></span></p>
+                    <a href="index.html" class="btn btn-secondary btn-full" style="margin-top: 20px;">← Voltar para a página inicial</a>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/utils.js"></script>
+    <script src="js/auth.js"></script>
+    <script>
+        const PIX_KEY = '87992054060';
+        const AMOUNT = '10.00';
+
+        // Gera QR Code usando API pública
+        document.getElementById('qrCodeImg').src =
+            `https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(PIX_KEY)}&bgcolor=f0fdf4&color=16a34a`;
+
+        function copyPix() {
+            navigator.clipboard.writeText(PIX_KEY).then(() => {
+                Utils.showToast('Chave PIX copiada!', 'success');
+            }).catch(() => {
+                prompt('Copie a chave PIX:', PIX_KEY);
+            });
+        }
+
+        document.getElementById('pixForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const comprovante = document.getElementById('comprovante').value.trim();
+            const alertBox = document.getElementById('authAlert');
+
+            if (comprovante.length < 5) {
+                alertBox.className = 'auth-alert error';
+                alertBox.textContent = 'Por favor, informe o ID da transação completo.';
+                alertBox.style.display = 'flex';
+                return;
+            }
+
+            // Busca dados pendentes do sessionStorage
+            const pendingData = JSON.parse(sessionStorage.getItem('sertaxi_pending_register') || 'null');
+            if (!pendingData) {
+                alertBox.className = 'auth-alert error';
+                alertBox.textContent = 'Erro: dados de cadastro não encontrados. Volte e preencha o formulário novamente.';
+                alertBox.style.display = 'flex';
+                return;
+            }
+
+            // Registra o usuário com status "pendente"
+            const users = JSON.parse(localStorage.getItem('sertaxi_users') || '[]');
+            const pending = {
+                id: 'usr_' + Date.now(),
+                createdAt: new Date().toISOString(),
+                rating: '5.0',
+                totalRides: 0,
+                totalEarnings: 0,
+                online: false,
+                status: 'pending', // aguardando aprovação
+                pixComprovante: comprovante,
+                pixPaidAt: new Date().toISOString(),
+                ...pendingData
+            };
+
+            users.push(pending);
+            localStorage.setItem('sertaxi_users', JSON.stringify(users));
+            sessionStorage.removeItem('sertaxi_pending_register');
+
+            // Mostra tela de confirmação
+            document.getElementById('paymentScreen').style.display = 'none';
+            document.getElementById('comprovanteEcho').textContent = comprovante;
+            document.getElementById('pendingScreen').style.display = 'block';
+        });
+    </script>
+</body>
+</html>

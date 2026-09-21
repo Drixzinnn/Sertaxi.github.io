@@ -1,0 +1,381 @@
+/* =========================================
+   SERTAXI – Estilos Específicos da Landing Page
+   ========================================= */
+
+.hero {
+    position: relative;
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    background: linear-gradient(135deg, #F0F9F4 0%, #E2F4E9 40%, #D1EEDB 100%);
+    padding-top: 100px;
+    padding-bottom: 80px;
+    overflow: hidden;
+}
+
+.hero-bg {
+    position: absolute;
+    inset: 0;
+    background-image:
+        radial-gradient(circle at 15% 45%, rgba(10, 125, 62, 0.15) 0%, transparent 55%),
+        radial-gradient(circle at 85% 15%, rgba(107, 59, 24, 0.1) 0%, transparent 45%);
+}
+
+.hero-grid {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 48px;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+}
+
+.hero-content h1 {
+    font-size: clamp(2.4rem, 5vw, 3.8rem);
+    font-weight: 900;
+    line-height: 1.12;
+    margin-bottom: 20px;
+    letter-spacing: -0.5px;
+}
+
+.hero-description {
+    font-size: 1.15rem;
+    color: var(--text-light);
+    line-height: 1.65;
+    margin-bottom: 36px;
+    max-width: 540px;
+}
+
+.hero-cta-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 40px;
+}
+
+.cta-choice-card {
+    background: var(--bg-card);
+    border: 2px solid transparent;
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    box-shadow: var(--shadow-md);
+    transition: var(--transition);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.cta-choice-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-xl);
+    border-color: var(--primary);
+}
+
+.cta-choice-card.driver {
+    background: linear-gradient(135deg, #0F172A, #1E293B);
+    color: #fff;
+}
+
+.cta-choice-card.driver h3 {
+    color: #fff;
+}
+
+.cta-choice-card.driver p {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.cta-card-icon {
+    font-size: 2.2rem;
+    margin-bottom: 12px;
+}
+
+.cta-choice-card h3 {
+    font-size: 1.2rem;
+    font-weight: 800;
+    margin-bottom: 6px;
+}
+
+.cta-choice-card p {
+    font-size: 0.88rem;
+    color: var(--text-light);
+    margin-bottom: 16px;
+    line-height: 1.5;
+}
+
+.hero-stats-row {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    padding-top: 12px;
+}
+
+.hero-stat-item strong {
+    display: block;
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: var(--dark);
+}
+
+.hero-stat-item span {
+    font-size: 0.82rem;
+    color: var(--text-light);
+}
+
+.hero-stat-divider {
+    width: 1px;
+    height: 36px;
+    background: var(--border);
+}
+
+/* Card Visual do Hero */
+.hero-mockup-card {
+    background: var(--bg-card);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-xl);
+    padding: 28px;
+    border: 1px solid var(--border-light);
+    animation: floatCard 5s ease-in-out infinite;
+}
+
+@keyframes floatCard {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.mockup-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.mockup-driver-box {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--bg-soft);
+    padding: 12px 16px;
+    border-radius: var(--radius);
+    margin-top: 16px;
+}
+
+/* Seções de 'Como Funciona' */
+.how-section {
+    padding: 100px 0;
+}
+
+.how-grid-steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+}
+
+.how-step-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-lg);
+    padding: 32px 24px;
+    text-align: center;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+}
+
+.how-step-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--primary-light);
+}
+
+.how-step-number {
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    background: var(--primary-light);
+    color: var(--primary-darker);
+    font-size: 1.4rem;
+    font-weight: 900;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+}
+
+.how-step-card h3 {
+    font-size: 1.2rem;
+    font-weight: 800;
+    margin-bottom: 10px;
+}
+
+.how-step-card p {
+    font-size: 0.92rem;
+    color: var(--text-light);
+    line-height: 1.6;
+}
+
+/* Benefícios em 2 Colunas */
+.split-features {
+    padding: 90px 0;
+    background: var(--bg-soft);
+}
+
+.split-features-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+}
+
+.split-box {
+    background: var(--bg-card);
+    border-radius: var(--radius-lg);
+    padding: 40px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-light);
+}
+
+.split-box.dark {
+    background: var(--dark);
+    color: #fff;
+}
+
+.split-box.dark h3 {
+    color: #fff;
+}
+
+.split-box.dark p {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.split-box h3 {
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin-bottom: 12px;
+}
+
+.split-box p {
+    color: var(--text-light);
+    margin-bottom: 24px;
+}
+
+.split-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-bottom: 28px;
+}
+
+.split-list-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.95rem;
+}
+
+/* Grid de Depoimentos */
+.testimonials-section {
+    padding: 100px 0;
+}
+
+.testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+.testimonial-box {
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-lg);
+    padding: 28px;
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.testimonial-stars {
+    font-size: 0.95rem;
+    margin-bottom: 14px;
+}
+
+.testimonial-text {
+    font-size: 0.95rem;
+    color: var(--text);
+    font-style: italic;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+/* Big CTA Banner */
+.cta-banner-section {
+    padding: 90px 0;
+    background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+    color: #fff;
+    text-align: center;
+}
+
+.cta-banner-section h2 {
+    color: #fff;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 900;
+    margin-bottom: 16px;
+}
+
+.cta-banner-section p {
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin: 0 auto 36px;
+}
+
+.cta-banner-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+/* Responsividade */
+@media (max-width: 992px) {
+    .hero-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .hero-description {
+        margin: 0 auto 32px;
+    }
+
+    .hero-stats-row {
+        justify-content: center;
+    }
+
+    .split-features-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .how-grid-steps {
+        grid-template-columns: 1fr;
+    }
+
+    .testimonials-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    .hero-cta-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .hero-stats-row {
+        flex-direction: column;
+        gap: 14px;
+    }
+
+    .hero-stat-divider {
+        width: 40px;
+        height: 1px;
+    }
+}

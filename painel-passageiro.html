@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel do Passageiro – Sertãxi</title>
+    <link rel="icon" type="image/png" href="assets/logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+    <div class="dashboard-layout">
+        <!-- Sidebar -->
+        <aside class="dashboard-sidebar" id="sidebar">
+            <div class="sidebar-top">
+                <a href="index.html" class="sidebar-brand">
+                    <div class="logo-box-light" style="width: 100%;">
+                        <img src="assets/logo.png" alt="Sertãxi" style="height: 42px; display: block; margin: 0 auto;">
+                    </div>
+                </a>
+
+                <div class="user-profile-badge">
+                    <div class="avatar avatar-primary" id="userAvatar">PS</div>
+                    <div class="user-profile-info">
+                        <div class="user-profile-name" id="userName">Carregando...</div>
+                        <div class="user-profile-type">Passageiro</div>
+                    </div>
+                </div>
+
+                <nav class="sidebar-menu">
+                    <button class="menu-item active" data-tab="inicio">
+                        <span class="menu-icon">🏠</span>
+                        <span>Início</span>
+                    </button>
+                    <button class="menu-item" data-tab="nova-corrida">
+                        <span class="menu-icon">🚕</span>
+                        <span>Pedir Corrida</span>
+                    </button>
+                    <button class="menu-item" data-tab="minhas-corridas">
+                        <span class="menu-icon">📋</span>
+                        <span>Minhas Corridas</span>
+                    </button>
+                    <button class="menu-item" data-tab="perfil">
+                        <span class="menu-icon">👤</span>
+                        <span>Meu Perfil</span>
+                    </button>
+                </nav>
+            </div>
+
+            <div class="sidebar-bottom">
+                <button class="logout-btn" id="logoutBtn">
+                    <span>🚪</span>
+                    <span>Sair da Conta</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Conteúdo Principal -->
+        <main class="dashboard-main">
+            <header class="dashboard-header">
+                <div class="flex items-center gap-2">
+                    <button class="dashboard-mobile-btn" id="mobileToggleBtn" aria-label="Menu">☰</button>
+                    <div class="header-title">
+                        <h2 id="pageTitle">Visão Geral</h2>
+                        <p id="pageSubtitle">Bem-vindo ao seu painel de passageiro</p>
+                    </div>
+                </div>
+                <div class="header-actions">
+                    <button class="btn btn-primary btn-sm" onclick="switchTab('nova-corrida')">
+                        + Nova Corrida
+                    </button>
+                </div>
+            </header>
+
+            <div class="dashboard-content">
+                <!-- ABA 1: Início -->
+                <section class="tab-content active" id="tab-inicio">
+                    <div class="stats-grid">
+                        <div class="stat-box">
+                            <div class="stat-icon-wrapper yellow">🚕</div>
+                            <div class="stat-data">
+                                <strong id="statTotalRides">0</strong>
+                                <span>Corridas Realizadas</span>
+                            </div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-icon-wrapper green">⭐</div>
+                            <div class="stat-data">
+                                <strong id="statRating">5.0</strong>
+                                <span>Sua Nota Média</span>
+                            </div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-icon-wrapper blue">⏳</div>
+                            <div class="stat-data">
+                                <strong id="statActiveRideStatus">Nenhuma</strong>
+                                <span>Corrida em Andamento</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card de Corrida Ativa (se houver) -->
+                    <div id="activeRideContainer" style="display: none;">
+                        <div class="active-ride-card">
+                            <div class="active-ride-header">
+                                <div class="active-ride-pulse">
+                                    <span class="status-dot online"></span>
+                                    <span id="activeRideStatusText">Aguardando motorista...</span>
+                                </div>
+                                <span class="badge badge-warning" id="activeRideBadge">Em espera</span>
+                            </div>
+                            <div class="ride-route mb-2">
+                                <div class="route-item">
+                                    <span class="route-badge origem">A</span>
+                                    <span id="activeRideOrigin">Carregando...</span>
+                                </div>
+                                <div class="route-item">
+                                    <span class="route-badge destino">B</span>
+                                    <span id="activeRideDest">Carregando...</span>
+                                </div>
+                            </div>
+                            <div class="ride-card-bottom">
+                                <div>
+                                    <div class="text-xs text-muted">VALOR ESTIMADO</div>
+                                    <div class="ride-price" id="activeRidePrice">R$ 0,00</div>
+                                </div>
+                                <div id="activeRideDriverSection" style="display: none;">
+                                    <div class="text-xs text-muted">MOTORISTA</div>
+                                    <strong id="activeRideDriverName">-</strong>
+                                    <div class="text-xs text-muted" id="activeRideDriverCar">-</div>
+                                </div>
+                                <div>
+                                    <button class="btn btn-outline btn-sm" id="cancelActiveRideBtn">
+                                        Cancelar Corrida
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Histórico Recente -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 style="font-size: 1.1rem; font-weight: 700;">Últimas Corridas</h3>
+                            <a href="javascript:void(0)" onclick="switchTab('minhas-corridas')" class="btn btn-ghost btn-sm">Ver todas →</a>
+                        </div>
+                        <div id="recentRidesList" class="rides-list">
+                            <!-- Inserido dinamicamente -->
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ABA 2: Pedir Nova Corrida -->
+                <section class="tab-content" id="tab-nova-corrida">
+                    <div class="card" style="max-width: 650px; margin: 0 auto;">
+                        <h3 class="mb-2" style="font-size: 1.3rem; font-weight: 800;">Para onde vamos hoje?</h3>
+                        <p class="text-muted mb-3">Informe seu ponto de partida e destino para calcularmos a rota e o preço.</p>
+
+                        <form id="newRideForm">
+                            <div class="form-group">
+                                <label for="rideOrigin">📍 Local de Embarque (Origem)</label>
+                                <input type="text" id="rideOrigin" class="form-control" placeholder="Ex: Av. Paulista, 1000 - Bela Vista" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="rideDestination">🏁 Destino Final</label>
+                                <input type="text" id="rideDestination" class="form-control" placeholder="Ex: Aeroporto de Congonhas - Portão 2" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Forma de Pagamento Preferida</label>
+                                <select class="form-control" id="ridePaymentMethod">
+                                    <option value="pix">PIX (Direto com o motorista)</option>
+                                    <option value="dinheiro">Dinheiro</option>
+                                    <option value="cartao">Cartão de Crédito / Débito na maquininha</option>
+                                </select>
+                            </div>
+
+                            <div id="rideEstimateBox" style="display: none; background: var(--bg-soft); border: 1.5px dashed var(--border); border-radius: var(--radius); padding: 20px; margin-bottom: 20px;">
+                                <div class="flex justify-between items-center mb-1">
+                                    <span class="text-muted">Valor estimado da viagem:</span>
+                                    <span class="ride-price text-success" id="estimatedPriceText">R$ 0,00</span>
+                                </div>
+                                <div class="text-xs text-muted">
+                                    * Tarifa calculada com preço base justo do SerTaxi sem cobrança dinâmica abusiva.
+                                </div>
+                            </div>
+
+                            <div class="flex gap-2">
+                                <button type="button" class="btn btn-outline btn-lg" id="btnCalculatePrice">
+                                    Calcular Preço
+                                </button>
+                                <button type="submit" class="btn btn-primary btn-lg flex-1" id="btnConfirmRide">
+                                    Confirmar Solicitação de Corrida 🚖
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+
+                <!-- ABA 3: Minhas Corridas -->
+                <section class="tab-content" id="tab-minhas-corridas">
+                    <div class="filter-tabs">
+                        <button class="filter-tab active" data-filter="all">Todas</button>
+                        <button class="filter-tab" data-filter="active">Em Andamento</button>
+                        <button class="filter-tab" data-filter="completed">Concluídas</button>
+                    </div>
+                    <div id="allRidesList" class="rides-list">
+                        <!-- Inserido dinamicamente -->
+                    </div>
+                </section>
+
+                <!-- ABA 4: Meu Perfil -->
+                <section class="tab-content" id="tab-perfil">
+                    <div class="card" style="max-width: 600px;">
+                        <h3 class="mb-2" style="font-size: 1.25rem; font-weight: 800;">Dados Cadastrais</h3>
+                        <p class="text-muted mb-3">Mantenha suas informações sempre atualizadas para facilitar o contato.</p>
+
+                        <form id="profileForm">
+                            <div class="form-group">
+                                <label for="profName">Nome Completo</label>
+                                <input type="text" id="profName" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="profEmail">E-mail</label>
+                                <input type="email" id="profEmail" class="form-control" required>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="profPhone">Telefone</label>
+                                    <input type="tel" id="profPhone" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="profCpf">CPF</label>
+                                    <input type="text" id="profCpf" class="form-control" disabled style="opacity: 0.7; cursor: not-allowed;">
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-lg mt-2">
+                                Salvar Alterações
+                            </button>
+                        </form>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/utils.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/rides.js"></script>
+    <script src="js/passenger.js"></script>
+</body>
+</html>

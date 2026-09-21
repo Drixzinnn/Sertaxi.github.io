@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Passageiro – Sertãxi</title>
+    <link rel="icon" type="image/png" href="assets/logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/auth.css">
+</head>
+<body>
+    <div class="auth-wrapper">
+        <!-- Banner Lateral -->
+        <aside class="auth-banner">
+            <a href="index.html" class="logo">
+                <div class="logo-box-light">
+                    <img src="assets/logo.png" alt="Sertãxi" style="height: 48px; display: block;">
+                </div>
+            </a>
+
+            <div class="auth-banner-content">
+                <div class="auth-banner-badge">🧳 Sertãxi · Para Passageiros</div>
+                <h2>Viaje com tranquilidade, conforto e segurança</h2>
+                <p>Crie sua conta em menos de 1 minuto e tenha carros disponíveis a qualquer momento na sua região.</p>
+                <div class="auth-features">
+                    <div class="auth-feature-item">
+                        <span class="auth-feature-icon">📍</span>
+                        <span>Estimativa de preço antes de confirmar</span>
+                    </div>
+                    <div class="auth-feature-item">
+                        <span class="auth-feature-icon">⭐</span>
+                        <span>Motoristas avaliados pelos passageiros</span>
+                    </div>
+                    <div class="auth-feature-item">
+                        <span class="auth-feature-icon">💳</span>
+                        <span>Pagamento flexível: Dinheiro, PIX ou Cartão</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="auth-banner-footer">
+                &copy; 2026 SerTaxi. Todos os direitos reservados.
+            </div>
+        </aside>
+
+        <!-- Formulário de Cadastro -->
+        <main class="auth-main">
+            <div class="auth-card">
+                <div class="auth-header">
+                    <h1>Criar conta de Passageiro</h1>
+                    <p>Cadastre-se com redes sociais ou preencha o formulário.</p>
+                </div>
+
+                <div id="authAlert" class="auth-alert error"></div>
+
+
+                <form id="passengerRegisterForm">
+                    <div class="form-group">
+                        <label for="name">Nome Completo</label>
+                        <input type="text" id="name" class="form-control" placeholder="Ex: Maria Fernandes" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">E-mail</label>
+                        <input type="email" id="email" class="form-control" placeholder="seuemail@exemplo.com" required autocomplete="email">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="phone">Telefone / WhatsApp</label>
+                            <input type="tel" id="phone" class="form-control" placeholder="(00) 00000-0000" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="cpf">CPF</label>
+                            <input type="text" id="cpf" class="form-control" placeholder="000.000.000-00" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="password">Senha</label>
+                            <input type="password" id="password" class="form-control" placeholder="Mínimo 6 dígitos" required minlength="6">
+                        </div>
+                        <div class="form-group">
+                            <label for="confirmPassword">Confirmar Senha</label>
+                            <input type="password" id="confirmPassword" class="form-control" placeholder="Repita a senha" required minlength="6">
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-lg btn-full mt-2">
+                        Criar Minha Conta →
+                    </button>
+                </form>
+
+                <div class="auth-divider">
+                    <span>já faz parte?</span>
+                </div>
+
+                <div class="auth-footer-links">
+                    <p>Já possui cadastro? <a href="login.html">Fazer login</a></p>
+                    <p>Quer trabalhar como motorista? <a href="cadastro-motorista.html">Cadastre-se como Motorista</a></p>
+                    <p style="margin-top: 10px;"><a href="index.html" style="color: var(--text-light); font-weight: normal;">← Voltar para a página inicial</a></p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/utils.js"></script>
+    <script src="js/auth.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            Auth.redirectIfLoggedIn();
+
+            const form = document.getElementById('passengerRegisterForm');
+            const alertBox = document.getElementById('authAlert');
+            const phoneInput = document.getElementById('phone');
+            const cpfInput = document.getElementById('cpf');
+
+            // Máscaras
+            Utils.applyMask(phoneInput, Utils.phoneMask);
+            Utils.applyMask(cpfInput, Utils.cpfMask);
+
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+
+                const name = document.getElementById('name').value.trim();
+                const email = document.getElementById('email').value.trim();
+                const phone = phoneInput.value.trim();
+                const cpf = cpfInput.value.trim();
+                const password = document.getElementById('password').value;
+                const confirmPassword = document.getElementById('confirmPassword').value;
+
+                alertBox.style.display = 'none';
+
+                if (!Utils.isValidEmail(email)) {
+                    showAlert('Por favor, digite um e-mail válido.');
+                    return;
+                }
+
+                if (!Utils.isValidPhone(phone)) {
+                    showAlert('Por favor, digite um telefone com DDD válido.');
+                    return;
+                }
+
+                if (!Utils.isValidCPF(cpf)) {
+                    showAlert('Por favor, digite um CPF válido.');
+                    return;
+                }
+
+                if (password.length < 6) {
+                    showAlert('A senha deve ter pelo menos 6 caracteres.');
+                    return;
+                }
+
+                if (password !== confirmPassword) {
+                    showAlert('As senhas não coincidem.');
+                    return;
+                }
+
+                const result = Auth.validateRegistrationData({
+                    type: 'passenger',
+                    name,
+                    email,
+                    phone,
+                    cpf,
+                    password
+                });
+
+                if (result && result.error) {
+                    showAlert(result.error);
+                    return;
+                }
+
+                // Verifica se e-mail ou CPF já existem
+                const users = JSON.parse(localStorage.getItem('sertaxi_users') || '[]');
+                if (users.find(u => u.email === email)) {
+                    showAlert('Este e-mail já está cadastrado.');
+                    return;
+                }
+                if (users.find(u => u.cpf === cpf)) {
+                    showAlert('Este CPF já está cadastrado.');
+                    return;
+                }
+
+                // Salva dados no sessionStorage e redireciona para pagamento
+                sessionStorage.setItem('sertaxi_pending_register', JSON.stringify({
+                    type: 'passenger',
+                    name,
+                    email,
+                    phone,
+                    cpf,
+                    password
+                }));
+
+                window.location.href = 'pagamento.html';
+            });
+
+            function showAlert(msg) {
+                alertBox.className = 'auth-alert error';
+                alertBox.textContent = msg;
+                alertBox.style.display = 'flex';
+            }
+
+            // Cadastro rápido Google
+            document.getElementById('btnGoogleRegister').addEventListener('click', () => {
+                alertBox.className = 'auth-alert success';
+                alertBox.textContent = 'Conta vinculada ao Google! Redirecionando para seu painel...';
+                alertBox.style.display = 'flex';
+                Auth.loginWithGoogle('passenger');
+                setTimeout(() => {
+                    window.location.href = 'painel-passageiro.html';
+                }, 800);
+            });
+
+            // Cadastro rápido Apple
+            document.getElementById('btnAppleRegister').addEventListener('click', () => {
+                alertBox.className = 'auth-alert success';
+                alertBox.textContent = 'Conta vinculada ao Apple ID! Redirecionando para seu painel...';
+                alertBox.style.display = 'flex';
+                Auth.loginWithApple('passenger');
+                setTimeout(() => {
+                    window.location.href = 'painel-passageiro.html';
+                }, 800);
+            });
+        });
+    </script>
+</body>
+</html>
