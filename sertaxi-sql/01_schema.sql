@@ -258,7 +258,7 @@ begin
   insert into profiles (id, role, full_name, email, phone)
   values (
     new.id,
-    coalesce((new.raw_user_meta_data->>'role')::user_role, 'passenger'),
+    case when new.raw_user_meta_data->>'role' = 'driver' then 'driver'::user_role else 'passenger'::user_role end,
     coalesce(new.raw_user_meta_data->>'full_name', split_part(new.email,'@',1)),
     new.email,
     new.raw_user_meta_data->>'phone'
